@@ -52,25 +52,4 @@ System.setProperty("java.rmi.server.codebase", "file:/chemin/vers/votre/out/prod
 1. Compiler et exécuter la classe **Client.java**.
 2. Le client offre un menu interactif pour ajouter, modifier, supprimer des animaux, ou encore consulter leur dossier médical.
 
----
-
-## Problèmes potentiels
-
-### 1. Problèmes liés aux chemins d'accès
-Vous pourriez rencontrer des erreurs si les chemins vers le fichier `security.policy` ou le répertoire de sortie ne sont pas correctement configurés. Modifiez-les en fonction de votre configuration locale.
-
-### 2. Sécurité et politique RMI
-Le fichier `security.policy` doit accorder les permissions nécessaires pour l'utilisation des appels distants (RMI). Vérifiez que les permissions suivantes sont présentes :
-```properties
-grant {
-    permission java.security.AllPermission;
-};
-```
-
----
-
-## Contact
-Pour toute question ou assistance supplémentaire, veuillez contacter les membres du binôme :
-- [Votre Nom]
-- [Nom du binôme]
 
