@@ -1,12 +1,5 @@
 package rmi.server;
-
-import rmi.commons.Espece;
-import rmi.commons.IAnimal;
 import rmi.commons.ICabinetVeterinaire;
-import rmi.server.AnimalImpl;
-import rmi.server.CabinetVeterinaireImpl;
-
-import java.io.File;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 

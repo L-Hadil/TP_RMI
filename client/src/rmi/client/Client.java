@@ -5,23 +5,23 @@ import rmi.commons.*;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.RemoteObject;
+
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
-        // Configuration de la politique de sécurité
+
         System.setProperty("java.security.policy", "/home/hadil/IdeaProjects/RMI_Project_ALD/security.policy");
         System.setSecurityManager(new SecurityManager());
 
         try {
-            // Connexion au registre RMI pour récupérer le cabinet vétérinaire
+
             Registry registry = LocateRegistry.getRegistry("localhost");
             ICabinetVeterinaire cabinet = (ICabinetVeterinaire) registry.lookup("CabinetVeterinaire");
 
-            // Créer et exporter l'objet callback
+
             IClientCallback clientCallback = new CallbackImpl();
 
             IClientCallback stubCallback;
