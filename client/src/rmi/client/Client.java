@@ -24,24 +24,24 @@ public class Client {
             // Créer et exporter l'objet callback
             IClientCallback clientCallback = new CallbackImpl();
 
-            // Vérifiez si l'objet est déjà exporté
-            if (RemoteObject.toStub(clientCallback) == null) {
-                // Si non exporté, alors l'exporter
-                IClientCallback stubCallback = (IClientCallback) UnicastRemoteObject.exportObject(clientCallback, 0);
-                // Enregistrer le client pour les alertes
-                cabinet.registerCallback(stubCallback);
+            IClientCallback stubCallback;
+            if (!(clientCallback instanceof UnicastRemoteObject)) {
+                // Exporter si ce n'est pas une instance d'UnicastRemoteObject
+                stubCallback = (IClientCallback) UnicastRemoteObject.exportObject(clientCallback, 0);
             } else {
-                // Enregistrer l'objet déjà exporté pour les alertes
-                cabinet.registerCallback(clientCallback);
+                stubCallback = clientCallback;
             }
 
+            // Enregistrer le client pour les alertes
+            cabinet.registerCallback(stubCallback);
             System.out.println("Client enregistré pour les alertes.");
+
 
             Scanner scanner = new Scanner(System.in);
             boolean running = true;
 
             while (running) {
-                // Affichage du menu interactif
+
                 System.out.println("=================================");
                 System.out.println("   MENU INTERACTIF VÉTÉRINAIRE   ");
                 System.out.println("=================================");
@@ -54,11 +54,11 @@ public class Client {
                 System.out.println("7. Quitter");
                 System.out.print("Choisissez une option : ");
                 int choix = scanner.nextInt();
-                scanner.nextLine(); // Consomme le saut de ligne
+                scanner.nextLine();
 
                 switch (choix) {
                     case 1:
-                        // Lister tous les animaux
+
                         List<IAnimal> animaux = cabinet.getAnimaux();
                         if (animaux.isEmpty()) {
                             System.out.println("Aucun animal n'est actuellement enregistré dans le cabinet.");
@@ -71,7 +71,7 @@ public class Client {
                         break;
 
                     case 2:
-                        // Rechercher un animal
+
                         System.out.println("Entrez le nom de l'animal à rechercher :");
                         String nomAnimal = scanner.nextLine();
                         IAnimal animal = cabinet.rechercherAnimalParNom(nomAnimal);
@@ -88,19 +88,18 @@ public class Client {
                         break;
 
                     case 3:
-                        // Ajouter un nouvel animal avec choix d'espèce
+
                         System.out.println("Ajouter un nouvel animal.");
                         System.out.print("Nom de l'animal : ");
                         String nom = scanner.nextLine();
                         System.out.print("Propriétaire : ");
                         String proprietaire = scanner.nextLine();
 
-                        // Choisir l'espèce
                         Espece espece = null;
                         while (espece == null) {
                             System.out.println("Choisissez l'espèce : 1. Chien 2. Chat");
                             int choixEspece = scanner.nextInt();
-                            scanner.nextLine();  // Consomme le saut de ligne
+                            scanner.nextLine();
 
                             if (choixEspece == 1) {
                                 espece = new Espece("Chien", 12);  // Exemple de création d'une espèce Chien
@@ -114,13 +113,12 @@ public class Client {
                         System.out.print("Race : ");
                         String race = scanner.nextLine();
 
-                        // Appel de la méthode distante pour ajouter l'animal au cabinet vétérinaire
                         cabinet.ajouterAnimal(nom, proprietaire, espece, race);
                         System.out.println("Animal ajouté avec succès !");
                         break;
 
                     case 4:
-                        // Modifier un animal
+
                         System.out.println("Entrez le nom de l'animal à modifier : ");
                         String nomAModifier = scanner.nextLine();
                         IAnimal animalAModifier = cabinet.rechercherAnimalParNom(nomAModifier);
@@ -134,11 +132,11 @@ public class Client {
                             String nouvelleEspece = scanner.nextLine();
                             System.out.print("Durée de vie moyenne : ");
                             int nouvelleDureeVie = scanner.nextInt();
-                            scanner.nextLine();  // Consomme le saut de ligne
+                            scanner.nextLine();
                             System.out.print("Nouvelle race : ");
                             String nouvelleRace = scanner.nextLine();
 
-                            // Modifier les attributs de l'animal existant
+
                             animalAModifier.setNomAnimal(nouveauNom);
                             animalAModifier.setProprietaire(nouveauProprietaire);
 
@@ -167,7 +165,7 @@ public class Client {
                         break;
 
                     case 6:
-                        // Gérer le dossier de suivi d'un animal
+
                         System.out.println("Entrez le nom de l'animal pour gérer son dossier de suivi :");
                         String nomAnimalSuivi = scanner.nextLine();
                         IAnimal animalSuivi = cabinet.rechercherAnimalParNom(nomAnimalSuivi);
@@ -189,7 +187,7 @@ public class Client {
                         break;
 
                     case 7:
-                        // Quitter l'application
+
                         System.out.println("Au revoir !");
                         running = false;
                         break;

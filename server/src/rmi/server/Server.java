@@ -21,8 +21,6 @@ public class Server {
         System.setProperty("java.rmi.server.codebase", "file:/home/hadil/IdeaProjects/RMI_Project_ALD/out/production/client/");
 
 
-
-
         try {
             // Démarre le registre RMI sur le port 1099
             Registry registry = LocateRegistry.createRegistry(1099);
@@ -36,11 +34,11 @@ public class Server {
             registry.bind("CabinetVeterinaire", cabinet);
             System.out.println("Cabinet vétérinaire publié dans le registre.");
 
-            // Test temporaire pour déclencher des alertes en ajoutant 100 animaux
+           /* // Test temporaire pour déclencher des alertes en ajoutant 100 animaux
             for (int i = 0; i < 600; i++) {
                 cabinet.ajouterAnimal("AnimalTest" + i, "ProprietaireTest" + i, new Espece("Chien", 10), "RaceTest" + i);
             }
-
+*/
 
 
         } catch (Exception e) {
